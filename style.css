@@ -20,12 +20,12 @@ body {
   .card-container {
     display: flex;
     height: 500px;
-    width: 800px;
+    width: 600px;
   }
   
   .panel {
     background: white;
-    width: 400px;
+    width: 300px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -38,11 +38,11 @@ body {
   }
   
   .half-input {
-    max-width: 100px;
+    max-width: 120px;
   }
   
   .map {
-    width: 500px;
+    width: 300px;
   }
   
   h2 {
