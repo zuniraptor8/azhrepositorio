@@ -100,7 +100,7 @@ function initMap() {
           marker.setVisible(true);
 
           const infoWindow = new google.maps.InfoWindow({
-            content: "Location found.",
+            content: "¿Este es tu inmueble?",
           });
           infoWindow.open(map, marker);
 
