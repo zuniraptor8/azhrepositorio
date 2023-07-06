@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Selección de ubicación</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js"></script>
+  </head>
+
+  <body>
+    <div class="card-container">
+      <div class="panel">
+        <div>
+          <img class="sb-title-icon" src="https://svgshare.com/i/uzX.svg" alt="">
+          <span class="sb-title">Dirección del inmueble</span>
+        </div>
+        <input type="text" placeholder="Dirección" id="location-input" />
+        <input type="text" placeholder="Numero interior (opcional)" />
+        <input type="text" placeholder="Ciudad" id="locality-input" />
+        <div class="half-input-container">
+          <input type="text" class="half-input" placeholder="Estado" id="administrative_area_level_1-input" />
+          <input type="text" class="half-input" placeholder="Código Postal" id="postal_code-input" />
+        </div>
+        <input type="text" placeholder="País" id="country-input" />
+      </div>
+      <div class="map" id="7e96eb91e6c45c79"></div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_5zNfmy1ZKoBbL_GdN6Q03PpAi3eQcq8&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAB" async defer></script>
+  </body>
+
+</html>
