@@ -1,9 +1,24 @@
 function initMap() {
   const CONFIGURATION = {
-    "ctaTitle": "Confirmar ubicacion",
-    "mapOptions": {"center":{"lat":37.4221,"lng":-122.0841},"fullscreenControl":true,"mapTypeControl":false,"streetViewControl":false,"zoom":16,"zoomControl":true,"maxZoom":22,"mapId":"7e96eb91e6c45c79"},
+    "ctaTitle": "Confirmar",
+    "mapOptions": {
+      "center": {"lat": 20.699202, "lng": -103.379658},
+      "fullscreenControl": true,
+      "mapTypeControl": false,
+      "streetViewControl": false,
+      "zoom": 18,
+      "zoomControl": true,
+      "maxZoom": 22,
+      "mapId": "7e96eb91e6c45c79"
+    },
     "mapsApiKey": "AIzaSyA_5zNfmy1ZKoBbL_GdN6Q03PpAi3eQcq8",
-    "capabilities": {"addressAutocompleteControl":true,"mapDisplayControl":true,"ctaControl":false}
+    "capabilities": {
+      "addressAutocompleteControl": true,
+      "mapDisplayControl": true,
+      "ctaControl": true
+    }
+    
+    
   };
   const componentForm = [
     'location',
@@ -12,12 +27,14 @@ function initMap() {
     'country',
     'postal_code',
   ];
-
+  
+  
+  
   const getFormInputElement = (component) => document.getElementById(component + '-input');
   const map = new google.maps.Map(document.getElementById("7e96eb91e6c45c79"), {
     zoom: CONFIGURATION.mapOptions.zoom,
     mapId: '7e96eb91e6c45c79',
-    center: { lat: 20.698013, lng: -103.377798 },
+    center: CONFIGURATION.mapOptions.center,
     mapTypeControl: false,
     fullscreenControl: CONFIGURATION.mapOptions.fullscreenControl,
     zoomControl: CONFIGURATION.mapOptions.zoomControl,
@@ -37,7 +54,52 @@ function initMap() {
     types: ["address"],
   });
 
-  const marker = new google.maps.Marker({ map: map, draggable: true, icon: image });
+  const marker = new google.maps.Marker({map: map, draggable: true, icon: image});
+  const markerGlow = new google.maps.Marker({
+    map: map,
+    position: marker.getPosition(),
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillOpacity: 0.3,
+      fillColor: '#fe1368',
+      strokeOpacity: 0,
+      scale: 12
+    },
+    zIndex: -1
+    
+  });
+  // Add a click event listener to the map for updating the marker's position
+  google.maps.event.addListener(map, 'click', function(event) {
+    marker.setPosition(event.latLng);
+    marker.setVisible(true);
+    markerGlow.setPosition(event.latLng);
+    markerGlow.setVisible(true);
+
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ location: event.latLng }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          const place = results[0];
+          renderAddress(place);
+          fillInAddress(place);
+        }
+      }
+    });
+    
+  });
+  
+
+map.addListener("center_changed", () => {
+  // 3 seconds after the center of the map has changed, pan back to the
+  // marker.
+  window.setTimeout(() => {
+    map.panTo(marker.getPosition());
+  }, 3000);
+});
+marker.addListener("click", () => {
+  map.setZoom(20);
+  map.setCenter(marker.getPosition());
+});
 
   autocomplete.addListener('place_changed', function () {
     marker.setVisible(true);
@@ -49,6 +111,59 @@ function initMap() {
     renderAddress(place);
     fillInAddress(place);
   });
+
+  
+  marker.addListener('dragend', function () {
+    const newMarkerPosition = marker.getPosition();
+    const newMarkerLatitude = newMarkerPosition.lat();
+    const newMarkerLongitude = newMarkerPosition.lng();
+
+    fillInAddressFromGeolocation(newMarkerLatitude, newMarkerLongitude);
+  });
+
+  function fillInAddressFromGeolocation(latitude, longitude) {
+    const geocoder = new google.maps.Geocoder();
+    const latLng = new google.maps.LatLng(latitude, longitude);
+
+    geocoder.geocode({'latLng': latLng}, function (results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          const place = results[0];
+          renderAddress(place);
+          fillInAddress(place);
+        }
+      }
+    });
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+
+        map.setCenter(pos);
+        marker.setPosition(pos);
+        marker.setVisible(true);
+        markerGlow.setPosition(pos);
+        markerGlow.setVisible(true);
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: "¿Este es tu inmueble? 😊 ",
+        });
+        infoWindow.open(map, marker);
+
+        fillInAddressFromGeolocation(position.coords.latitude, position.coords.longitude);
+      },
+      () => {
+        handleLocationError(true, map.getCenter());
+      }
+    );
+  } else {
+    handleLocationError(false, map.getCenter());
+  }
 
   function fillInAddress(place) {
     const addressNameFormat = {
@@ -79,6 +194,8 @@ function initMap() {
     map.setCenter(place.geometry.location);
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
+    markerGlow.setPosition(place.geometry.location);
+    markerGlow.setVisible(true);
   }
 
   const locationButton = document.createElement("button");
@@ -98,9 +215,11 @@ function initMap() {
           map.setCenter(pos);
           marker.setPosition(pos);
           marker.setVisible(true);
+          markerGlow.setPosition(pos);
+          markerGlow.setVisible(true);
 
           const infoWindow = new google.maps.InfoWindow({
-            content: "¿Este es tu inmueble?",
+            content: "¿Este es tu inmueble? 😊",
           });
           infoWindow.open(map, marker);
 
@@ -119,16 +238,22 @@ function initMap() {
     const geocoder = new google.maps.Geocoder();
     const latLng = new google.maps.LatLng(latitude, longitude);
 
-    geocoder.geocode({ 'latLng': latLng }, function (results, status) {
+    geocoder.geocode({'latLng': latLng}, function (results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           const place = results[0];
           renderAddress(place);
           fillInAddress(place);
-        }
+                }
       }
     });
   }
+
+  // Hide street view option
+  map.setOptions({streetViewControl: false});
 }
 
+
 window.initMap = initMap;
+
+
