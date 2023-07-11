@@ -53,6 +53,38 @@ function initMap() {
     fields: ["address_components", "geometry", "name"],
     types: ["address"],
   });
+// Get references to the input fields
+const locationInput = document.getElementById('location-input');
+const interiorInput = document.getElementById('interior-input');
+const cityInput = document.getElementById('locality-input');
+const stateInput = document.getElementById('administrative_area_level_1-input');
+const postalCodeInput = document.getElementById('postal_code-input');
+const countryInput = document.getElementById('country-input');
+
+// Function to handle form submission
+function submitForm() {
+  // Get the values from the input fields
+  const location = locationInput.value;
+  const interior = interiorInput.value;
+  const city = cityInput.value;
+  const state = stateInput.value;
+  const postalCode = postalCodeInput.value;
+  const country = countryInput.value;
+
+  // Push the values to the JotForm submission
+  JFCustomFormAPI.setFieldValues({
+    'address': location,
+    'interior': interior,
+    'locality': city,
+    'administrative_area_level_1': state,
+    'postal_code': postalCode,
+    'country': country
+  });
+}
+
+// Add event listener to the button
+const ctaButton = document.querySelector('.button-cta');
+ctaButton.addEventListener('click', submitForm);
 
   const marker = new google.maps.Marker({map: map, draggable: true, icon: image});
   const markerGlow = new google.maps.Marker({
@@ -232,6 +264,7 @@ marker.addListener("click", () => {
     } else {
       handleLocationError(false, map.getCenter());
     }
+    
   });
 
   function fillInAddressFromGeolocation(latitude, longitude) {
