@@ -120,11 +120,11 @@ autocomplete.addListener("place_changed", function () {
   var place = autocomplete.getPlace();
 
   // Populate the corresponding Fluent Forms address fields with the retrieved place details
-  getFormInputElement('address_line_1').value = place.name;
-  getFormInputElement('city').value = place.address_components[0].long_name;
-  getFormInputElement('state').value = place.address_components[2].short_name;
-  getFormInputElement('zip').value = place.address_components[6].short_name;
-  getFormInputElement('country').value = place.address_components[5].short_name;
+  getFormInputElement('ff_9_address_1_address_line_1_').value = place.name;
+  getFormInputElement('ff_9_address_1_city_').value = place.address_components[0].long_name;
+  getFormInputElement('ff_9_address_1_state_').value = place.address_components[2].short_name;
+  getFormInputElement('ff_9_address_1_zip_').value = place.address_components[6].short_name;
+  getFormInputElement('ff_9_address_1_country_').value = place.address_components[5].short_name;
 });
   marker.addListener('dragend', function () {
     const newMarkerPosition = marker.getPosition();
@@ -253,12 +253,12 @@ autocomplete.addListener("place_changed", function () {
     const latLng = new google.maps.LatLng(latitude, longitude);
 
     function handleLocationError(browserHasGeolocation, pos) {
-      // You can customize this function based on your requirements
-      const error = browserHasGeolocation
-        ? 'Error: The Geolocation service failed.'
-        : 'Error: Your browser doesn\'t support geolocation.';
-      console.log(error);
-    }
+    // You can customize this function based on your requirements
+    const error = browserHasGeolocation
+      ? 'Error: The Geolocation service failed.'
+      : 'Error: Your browser doesn\'t support geolocation.';
+    console.log(error);
+  }
 
     geocoder.geocode({'latLng': latLng}, function (results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
@@ -274,12 +274,12 @@ var state = document.getElementById("administrative_area_level_1-input");
 var zip = document.getElementById("postal_code-input");
 var country = document.getElementById("country-input");
 
-// Replace "address_line_1", "city", "state", "zip", and "country" with the IDs of your Fluent Forms address fields
-var addressLine1 = document.getElementById("address_line_1");
-var city = document.getElementById("city");
-var stateFF = document.getElementById("state");
-var zipFF = document.getElementById("zip");
-var countryFF = document.getElementById("country");
+// Replace "ff_9_address_1_address_line_1_", "ff_9_address_1_city_", "ff_9_address_1_state_", "ff_9_address_1_zip_", and "ff_9_address_1_country_" with the IDs of your Fluent Forms address fields
+var addressLine1 = document.getElementById("ff_9_address_1_address_line_1_");
+var city = document.getElementById("ff_9_address_1_city_");
+var stateFF = document.getElementById("ff_9_address_1_state_");
+var zipFF = document.getElementById("ff_9_address_1_zip_");
+var countryFF = document.getElementById("ff_9_address_1_country_");
 
 // Add an event listener to the "place_changed" event of the Google Maps Autocomplete object
 autocomplete.addListener("place_changed", function () {
