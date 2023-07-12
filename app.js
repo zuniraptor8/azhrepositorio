@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // Place your entire initMap function code here
+  // ...
+});
+
 function initMap() {
   const CONFIGURATION = {
     "ctaTitle": "Confirmar",
