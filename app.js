@@ -114,7 +114,18 @@ marker.addListener("click", () => {
     fillInAddress(place);
   });
 
-  
+  // Add an event listener to the "place_changed" event of the Google Maps Autocomplete object
+autocomplete.addListener("place_changed", function () {
+  // Get the selected place from the Autocomplete object
+  var place = autocomplete.getPlace();
+
+  // Populate the corresponding Fluent Forms address fields with the retrieved place details
+  getFormInputElement('ff_9_address_1_address_line_1_').value = place.name;
+  getFormInputElement('ff_9_address_1_city_').value = place.address_components[0].long_name;
+  getFormInputElement('ff_9_address_1_state_').value = place.address_components[2].short_name;
+  getFormInputElement('ff_9_address_1_zip_').value = place.address_components[6].short_name;
+  getFormInputElement('ff_9_address_1_country_').value = place.address_components[5].short_name;
+});
   marker.addListener('dragend', function () {
     const newMarkerPosition = marker.getPosition();
     const newMarkerLatitude = newMarkerPosition.lat();
@@ -290,7 +301,13 @@ autocomplete.addListener("place_changed", function () {
   map.setOptions({streetViewControl: false});
 }
 
+// Wait for the form to load
+jQuery(document).on('fluent_forms_rendered', function() {
 
-window.initMap = initMap;
+  // Initialize the map
+  initMap();
+});
+
+
 
 
