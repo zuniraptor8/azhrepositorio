@@ -252,6 +252,14 @@ autocomplete.addListener("place_changed", function () {
     const geocoder = new google.maps.Geocoder();
     const latLng = new google.maps.LatLng(latitude, longitude);
 
+    function handleLocationError(browserHasGeolocation, pos) {
+      // You can customize this function based on your requirements
+      const error = browserHasGeolocation
+        ? 'Error: The Geolocation service failed.'
+        : 'Error: Your browser doesn\'t support geolocation.';
+      console.log(error);
+    }
+
     geocoder.geocode({'latLng': latLng}, function (results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
