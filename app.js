@@ -108,21 +108,15 @@ marker.addListener("click", () => {
   map.setCenter(marker.getPosition());
 });
 
-  autocomplete.addListener('place_changed', function () {
-    marker.setVisible(true);
-    const place = autocomplete.getPlace();
-    if (!place.geometry) {
-      window.alert('No se encuentra el lugar indicado: \'' + place.name + '\'');
-      return;
-    }
-    renderAddress(place);
-    fillInAddress(place);
-  });
-
-  // Add an event listener to the "place_changed" event of the Google Maps Autocomplete object
 autocomplete.addListener("place_changed", function () {
   // Get the selected place from the Autocomplete object
   var place = autocomplete.getPlace();
+
+  if (!place.geometry) {
+    window.alert('No se encuentra el lugar indicado: \'' + place.name + '\'');
+    return;
+  }
+
 
   // Populate the corresponding Fluent Forms address fields with the retrieved place details
   getFormInputElement('ff_9_address_1_address_line_1_').value = place.name;
