@@ -35,7 +35,11 @@ function initMap() {
   
 
   
-  const getFormInputElement = (component) => document.getElementById(component + '-input');
+  function getFormInputElement(component) {
+    const element = document.getElementById(component + '-input');
+    console.log(`getFormInputElement(${component}):`, element);
+    return element;
+  }  
   const map = new google.maps.Map(document.getElementById("7e96eb91e6c45c79"), {
     zoom: CONFIGURATION.mapOptions.zoom,
     mapId: '7e96eb91e6c45c79',
@@ -308,13 +312,12 @@ autocomplete.addListener("place_changed", function () {
   map.setOptions({streetViewControl: false});
 }
 
-// Wait for the form to load
-jQuery(document).on('fluent_forms_rendered', function() {
-
-  // Initialize the map
-  initMap();
-});
-
+  // Wait for the form to load
+  jQuery(document).on('fluent_forms_rendered', function() {
+    console.log('Fluent Forms rendered');
+    // Initialize the map
+    initMap();
+  });
 
 
 
