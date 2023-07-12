@@ -35,11 +35,7 @@ function initMap() {
   
 
   
-  function getFormInputElement(component) {
-    const element = document.getElementById(component + '-input');
-    console.log(`getFormInputElement(${component}):`, element);
-    return element;
-  }  
+  const getFormInputElement = (component) => document.getElementById(component + '-input');
   const map = new google.maps.Map(document.getElementById("7e96eb91e6c45c79"), {
     zoom: CONFIGURATION.mapOptions.zoom,
     mapId: '7e96eb91e6c45c79',
@@ -121,13 +117,17 @@ autocomplete.addListener("place_changed", function () {
     return;
   }
 
+  // Wait for the form to load
+  jQuery(document).on('fluent_forms_rendered', function() {
+    console.log('Fluent Forms rendered');
+    // Populate the corresponding Fluent Forms address fields with the retrieved place details
+    getFormInputElement('ff_9_address_1_address_line_1_').value = place.name;
+    getFormInputElement('ff_9_address_1_city_').value = place.address_components[0].long_name;
+    getFormInputElement('ff_9_address_1_state_').value = place.address_components[2].short_name;
+    getFormInputElement('ff_9_address_1_zip_').value = place.address_components[6].short_name;
+    getFormInputElement('ff_9_address_1_country_').value = place.address_components[5].short_name;
+  });
 
-  // Populate the corresponding Fluent Forms address fields with the retrieved place details
-  getFormInputElement('ff_9_address_1_address_line_1_').value = place.name;
-  getFormInputElement('ff_9_address_1_city_').value = place.address_components[0].long_name;
-  getFormInputElement('ff_9_address_1_state_').value = place.address_components[2].short_name;
-  getFormInputElement('ff_9_address_1_zip_').value = place.address_components[6].short_name;
-  getFormInputElement('ff_9_address_1_country_').value = place.address_components[5].short_name;
 });
   marker.addListener('dragend', function () {
     const newMarkerPosition = marker.getPosition();
@@ -310,14 +310,14 @@ autocomplete.addListener("place_changed", function () {
 
   // Hide street view option
   map.setOptions({streetViewControl: false});
+
+
+// Wait for the DOM to load
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize the map
+  initMap();
+});
+
 }
-
-  // Wait for the form to load
-  jQuery(document).on('fluent_forms_rendered', function() {
-    console.log('Fluent Forms rendered');
-    // Initialize the map
-    initMap();
-  });
-
 
 
