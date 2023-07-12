@@ -1,157 +1,174 @@
 body {
-    margin: 0;
-  }
-  
-  .sb-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    top: -12px;
-    font-family: Roboto, sans-serif;
-    font-weight: 500;
-    font-size: 24px;
-  }
-  
-  .sb-title-icon {
-    height: 150px;
-    width: 150px;
-    align-self: center;
-    margin-bottom: 20px;
-    padding: 0 70px; /* Add padding to the left and right sides */
+  margin: 0;
+}
 
+.sb-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: -12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.sb-title-icon {
+  height: 100px;
+  width: 100%;
+  align-self: center;
+  margin-bottom: 20px;
+
+}
+.card-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #fe1368;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+}
+
+.panel {
+  background: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.half-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.half-input {
+  width: 100%;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+.map {
+  width: 100%;
+  height: 300px; /* Set an appropriate height for the map area */
+}
+
+h2 {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+input {
+  height: 40px;
+  width:100%;
+  margin-bottom: 10px; /* Add margin to create spacing between input fields */
+}
+
+input {
+  border-width: 1px;
+  border-color: #c6c6c6;
+  border-style:ridge;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+input:focus::placeholder {
+  color: white;
+}
+
+input[type="text"] {
+  color: rgb(0, 0, 0);
+}
+
+.custom-map-control-button {
+  background-color: #fe1368;
+  border: 0;
+  border-radius: 40px;
+  box-shadow: 0 7px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 20px;
+  padding: 0 2em;
+  font: 400 14px Roboto, Arial, sans-serif;
+  color: #ffffff;
+  overflow: hidden;
+  height: 40px;
+  cursor: pointer;
+  margin-left: -90em;
+  margin-right: 0;
+}
+
+.custom-map-control-button:hover {
+  background: rgb(0, 0, 0);
+}
+
+.panel input[type="text"] {
+  border-radius: 10px;
   
+}
+
+.panel label {
+  color: white;
+}
+
+.panel input[type="text"]::placeholder {
+  color: rgb(5, 5, 5);
+}
+
+input[type="text"] {
+  padding-left: 10px;
+}
+
+.button-cta {
+  height: 35px;
+  width: 100%;
+  margin-top: 20px;
+  background: #fe1368;
+  color: white;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-family: Roboto, sans-serif;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+}
+
+.button-cta {
+  /* Your existing button styles */
+}
+
+.button-glow {
+  animation: glowing 1.5s infinite;
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px #fe1368;
   }
-  
- 
-  .card-container {
-    display: flex;
-    height: 500px;
-    width: 600px;
-    border: 1px solid #fe1368;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+  50% {
+    box-shadow: 0 0 20px #fe1368;
   }
-  
-  .panel {
-    background: white;
-    width: 300px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  100% {
+    box-shadow: 0 0 5px #fe1368;
   }
+}
+
+/* Media Queries */
+@media (min-width: 769px) {
+  /* Styles for large screens (desktops) */
   
   .half-input-container {
-    display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
   }
   
   .half-input {
-    max-width: 120px;
+    width: calc(50% - 5px); /* Adjust the width based on your preference */
+    margin-bottom: 10px; /* Add margin to create spacing between input fields */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
   }
+}
+    
   
-  .map {
-    width: 300px;
-  }
-  
-  h2 {
-    margin: 0;
-    font-family: Roboto, sans-serif;
-  }
-  
-  input {
-    height: 30px;
-  }
-  
-  input {
-    border: 0;
-    border-bottom: 1px solid rgb(255, 34, 34);
-    font-size: 14px;
-    font-family: Roboto, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-  }
-  
-  input:focus::placeholder {
-    color: white;
-  }
-  input[type="text"] {
-    color: white;
-  }
-  
-  
-  .custom-map-control-button {
-    background-color: #fe1368;
-    border: 0;
-    border-radius: 40px;
-    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-    margin: 10px;
-    padding: 0 0.8em;
-    font: 400 14px Roboto, Arial, sans-serif; color: #ffffff;
-    overflow: hidden;
-    height: 40px;
-    cursor: pointer;
-    margin-left: -2em;
-    margin-right: 0;
-  }
-  .custom-map-control-button:hover {
-    background: rgb(0, 0, 0);
-  }
-  .panel input[type="text"] {
-    background-color: #262626;
-  }
-  .panel input[type="text"] {
-    border-radius: px;
-  }
-  .panel input[type="text"] {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-  }
-  
-  .panel label {
-    color: white;
-  }
-  .panel input[type="text"]::placeholder {
-    color: white;
-  }
-  input[type="text"] {
-    padding-left: 10px;
-  }
-  
-  .button-cta {
-    height: 35px;
-    width: 100%;
-    margin-top: 20px;
-    background: #fe1368;
-    color: white;
-    font-size: 12px;
-    text-transform: uppercase;
-    font-family: Roboto, sans-serif;
-    border: 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.48);
-    cursor: pointer;
-  }
-  
-  .button-cta {
-    /* Your existing button styles */
-  }
-  
-  .button-glow {
-    animation: glowing 1.5s infinite;
-  }
-  
-  @keyframes glowing {
-    0% {
-      box-shadow: 0 0 5px #fe1368;
-    }
-    50% {
-      box-shadow: 0 0 20px #fe1368;
-    }
-    100% {
-      box-shadow: 0 0 5px #fe1368;
-    }
-  }
-  
-  
+

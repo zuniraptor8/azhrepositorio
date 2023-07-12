@@ -202,7 +202,7 @@ marker.addListener("click", () => {
 
   const locationButton = document.createElement("button");
 
-  locationButton.textContent = "Usar mi ubicación";
+  locationButton.textContent = " 📍 Usar mi ubicación";
   locationButton.classList.add("custom-map-control-button");
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
   locationButton.addEventListener("click", () => {
