@@ -242,6 +242,7 @@ function initMap() {
 
       // Transfer the value to the corresponding Fluent Forms field
       const fluentFormsId = fieldMapping[googleMapsField];
+      console.log(fluentFormsId, googleMapsValue, document.getElementById(fluentFormsId));
       document.getElementById(fluentFormsId).value = googleMapsValue;
     });
   }
